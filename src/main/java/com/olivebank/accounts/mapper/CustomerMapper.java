@@ -10,11 +10,21 @@ public class CustomerMapper {
         customerDto.setMobileNumber(customer.getMobileNumber());
         return customerDto;
     }
-
+    /**
+     * Maps a CustomerDto object to a Customer entity.
+     *
+     * @param customerDto the CustomerDto object to map
+     * @param customer    the Customer entity to map to
+     * @return the mapped Customer entity
+     */
     public static Customer mapToCustomer(CustomerDto customerDto, Customer customer) {
+        // Set the customer name from the customer DTO
         customer.setName(customerDto.getName());
+        // Set the customer email from the customer DTO
         customer.setEmail(customerDto.getEmail());
+        // Set the customer mobile number from the customer DTO
         customer.setMobileNumber(customerDto.getMobileNumber());
+        // Return the mapped Customer entity
         return customer;
     }
 

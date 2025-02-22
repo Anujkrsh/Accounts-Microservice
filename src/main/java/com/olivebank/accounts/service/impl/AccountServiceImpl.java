@@ -12,11 +12,11 @@ import com.olivebank.accounts.util.AccountsConstants;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
-@AllArgsConstructor
 public class AccountServiceImpl implements IAccountService {
 
     private AccountsRepository accountsRepository;
@@ -29,6 +29,8 @@ public class AccountServiceImpl implements IAccountService {
         if (customerAlreadyExists.isPresent()) {
             throw new CustomerAlreadyExistException("Customer already exists with this number "+customer.getMobileNumber());
         }
+        customer.setCreatedAt(LocalDateTime.now());
+        customer.setCreatedBy("System");
         Customer savedCustomer=customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
     }
@@ -41,6 +43,8 @@ public class AccountServiceImpl implements IAccountService {
         newAccount.setAccountNumber(randomAccNumber);
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
+        customer.setCreatedAt(LocalDateTime.now());
+        customer.setCreatedBy("System");
         return newAccount;
     }
 }
